@@ -16,7 +16,7 @@ export default function Login() {
   }
 
   const register=()=>{
-
+    
   }
 
   return (

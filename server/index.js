@@ -62,6 +62,18 @@ app.post('/api/register',(req,res)=>{
   });
 });
 
+app.post('/api/transaction',(req,res)=>{
+  if(req.body.type=='Deposit'){
+    db.query("UPDATE customer SET balance = balance + (?) WHERE acc_no = (?)",[
+      req.body.amount,
+      req.body.sender
+    ],(err,result)=>{
+      if(!err) res.send(result);
+      else res.send(err);
+    });
+  }
+});
+
 app.get('/',(req,res)=>{
   res.send("this works");
 });
