@@ -10,13 +10,13 @@ export default function Login() {
   
   const submit = async ()=>{
     console.log("button pressed");
-    axios.post("http://localhost:8000/api/insert",{"bcode": 123,"bname": username, "badd": password}).then(()=>{
-      alert("Successful request!");
+    axios.post("http://localhost:8000/api/insert",{"username": username, "password": password}).then(()=>{
+      console.log("Successful request!");
     })
   }
 
   const register=()=>{
-    
+
   }
 
   return (
