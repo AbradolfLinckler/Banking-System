@@ -1,7 +1,9 @@
 label.label1{
   color: black;
 }
-
+.error{
+  font-size: 20%;
+}
 .row#lbl{
   color: black;
 }

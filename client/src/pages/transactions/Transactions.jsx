@@ -5,12 +5,16 @@ export default function Transactions() {
 
   const [amount, setAmount] = useState(0);
   const [pin, setPin] = useState(0);
-  const [type, setType] = useState(0);
+  const [type, setType] = useState("Deposit");
   const [showAc, setShowAc] = useState(false);
   const [sender, setSender] = useState(0);
   const [receiver, setReceiver] = useState(0);
+  const [wp, setWp] = useState(false);
+  const [ib, setIb] =useState(false);
 
   const submit = async ()=>{
+    setWp(false);
+    setIb(false);
     console.log(showAc);
     axios.post("http://localhost:8000/api/transaction",{
       "sender": sender,
@@ -18,17 +22,18 @@ export default function Transactions() {
       "amount": amount,
       "receiver": receiver,
       "pin": pin
-    }).then(()=>{
-      console.log("Transaction Successful!");
-      alert("Transaction Successful!")
-      setReceiver(null);
-      setAmount(null);
-      setPin(null);
+    }).then((res)=>{
+      console.log(res.data);
+      if(res.data==='Wrong Pin') setWp(true);
+      else if(res.data==='Insufficient Bal') setIb(true);
+      else {console.log("Transaction Successful!");
+      alert("Transaction Successful!")}
+      console.log(wp);
     });
   }
 
   return (
-    <div className='trasactions'>
+    <div className='trasactions' id='loginform'>
       <h1 id='headerTitle'>Banking</h1>
       <div className='form'>
         <div className='row'>
@@ -53,6 +58,7 @@ export default function Transactions() {
           <input type={'text'} onChange={(e)=>{
           setAmount(e.target.value) 
           }}></input>
+          {ib && <p>*Insufficient Balance</p>}
         </div>
         {
           showAc &&
@@ -68,6 +74,7 @@ export default function Transactions() {
           <input type={'password'} onChange={(e)=>{
           setPin(e.target.value)
           }}></input>
+          {wp && <p className='error'>*Wrong Pin</p>}
         </div>
         <div id='button' className='row'>
           <button onClick={submit}>Login</button>

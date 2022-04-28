@@ -44,7 +44,7 @@ app.get('/api/blist',(req,res)=>{
 });
 
 app.post('/api/register',(req,res)=>{
-  console.log(req.body.gender);
+  // console.log(req.body.gender);
   db.query("INSERT INTO customer VALUES (DEFAULT,?,?,?,?,?,?,?,?,?,?)",[
     req.body.fullName,
     req.body.gender,
@@ -63,15 +63,81 @@ app.post('/api/register',(req,res)=>{
 });
 
 app.post('/api/transaction',(req,res)=>{
-  if(req.body.type=='Deposit'){
-    db.query("UPDATE customer SET balance = balance + (?) WHERE acc_no = (?)",[
-      req.body.amount,
-      req.body.sender
-    ],(err,result)=>{
-      if(!err) res.send(result);
-      else res.send(err);
-    });
-  }
+  console.log(req.body);
+  var bal=0;
+  var pin=0;
+  db.query('SELECT * FROM customer WHERE acc_no = ?',[
+    req.body.sender
+  ],(err,result)=>{
+    if(!err){
+      console.log(result[0]);
+      this.pin=result[0].pin;
+      this.bal=result[0].balance;
+      console.log(this.bal);
+      console.log(this.pin);
+
+      console.log("Herer");
+      if(req.body.pin!=this.pin) {
+      // console.log(pin);
+      console.log("WP");
+      res.send("Wrong Pin");
+      }
+      else{
+        if(req.body.type=='Deposit'){
+          db.query("UPDATE customer SET balance = balance + ? WHERE acc_no = ?",[
+            req.body.amount,
+            req.body.sender
+          ],(err,result)=>{
+            // console.log(result);
+            if(!err) res.send(result);
+            else res.send(err);
+          });
+        }
+        if(req.body.amount>this.bal) {
+          console.log("IB");
+          res.send("Insufficient Bal");
+        }
+        else{
+          if(req.body.type=='Withdraw'){
+            db.query("UPDATE customer SET balance = balance - ? WHERE acc_no = ?",[
+              req.body.amount,
+              req.body.sender
+            ],(err,result)=>{
+              // console.log(result);
+              if(!err) res.send(result);
+              else res.send(err);
+            })
+          }
+          if(req.body.type=='Transfer'){
+            console.log("this is transfer");
+            db.query("UPDATE customer SET balance = balance - ? WHERE acc_no = ?;",[
+              req.body.amount,
+              req.body.sender
+            ],(err,result)=>{
+              db.query("UPDATE customer SET balance = balance + ? WHERE acc_no = ?;",[
+              req.body.amount,
+              req.body.receiver
+              ],(e,r)=>{
+                console.log(result);
+                console.log("success");
+                if(!e) res.send(r);
+                else throw e;
+              });
+              console.log(result);
+              // if(!err) res.send(result);
+              // res.send(err);
+            })
+          }
+        }
+        
+    
+      }
+    }
+    else throw err;
+  });
+  
+  
+  
 });
 
 app.get('/',(req,res)=>{
