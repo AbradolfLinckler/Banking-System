@@ -77,7 +77,7 @@ export default function Transactions() {
           {wp && <p className='error'>*Wrong Pin</p>}
         </div>
         <div id='button' className='row'>
-          <button onClick={submit}>Login</button>
+          <button onClick={submit}>Submit</button>
         </div>
         
       </div>
