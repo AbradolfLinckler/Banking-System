@@ -93,7 +93,7 @@ app.post('/api/transaction',(req,res)=>{
             else res.send(err);
           });
         }
-        if(req.body.amount>this.bal) {
+        else if(req.body.amount>this.bal) {
           console.log("IB");
           res.send("Insufficient Bal");
         }
@@ -135,9 +135,17 @@ app.post('/api/transaction',(req,res)=>{
     }
     else throw err;
   });
-  
-  
-  
+});
+
+app.post('/api/userlogin',(req,res)=>{
+  db.query("SELECT * FROM customer WHERE username = ? AND pin = ?",[
+    req.body.username,
+    req.body.password
+  ],(err,result)=>{
+    console.log(result);
+    if(result.length==0) res.send("wrong");
+    else res.send(result[0]);
+  });
 });
 
 app.get('/',(req,res)=>{
