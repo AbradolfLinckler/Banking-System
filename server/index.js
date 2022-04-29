@@ -90,7 +90,7 @@ app.post('/api/bal',(req,res)=>{
 
 app.post('/api/register',(req,res)=>{
   // console.log(req.body.gender);
-  db.query("INSERT INTO customer VALUES (DEFAULT,?,?,?,?,?,?,?,?,?,?)",[
+  db.query("INSERT INTO customer VALUES (DEFAULT,?,?,?,?,?,?,?,?,?)",[
     req.body.fullName,
     req.body.gender,
     req.body.acc_type,
@@ -99,8 +99,7 @@ app.post('/api/register',(req,res)=>{
     req.body.dob,
     req.body.pin,
     req.body.bcode,
-    req.body.address,
-    req.body.username
+    req.body.address
   ],(err,result)=>{
     if(!err) res.send(result);
     else res.send(err);
