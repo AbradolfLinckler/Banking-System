@@ -44,7 +44,7 @@ app.get('/api/blist',(req,res)=>{
 });
 
 app.get('/api/elist',(req,res)=>{
-  db.query("SELECT * FROM employee;",
+  db.query("SELECT employee.*,branch.* FROM employee JOIN branch ON employee.br_code=branch.branch_code;",
     (err,result)=>{
       if(!err) {
         res.send(result);
