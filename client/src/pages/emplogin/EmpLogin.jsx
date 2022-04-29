@@ -2,21 +2,25 @@ import React, { useState } from 'react';
 import './login.css';
 import axios from 'axios';
 
-export default function Login() {
+export default function EmpLogin() {
 
   const [username,setUserName]=useState("");
   const [password,setPassword]=useState("");
+  const [wc,setWc]=useState(false);
 
   
   const submit = async ()=>{
+    setWc(false);
     console.log("button pressed");
-    axios.post("http://localhost:8000/api/insert",{"username": username, "password": password}).then(()=>{
+    axios.post("http://localhost:8000/api/emplogin",{"username": username, "password": password}).then((res)=>{
+      console.log(res.data.length);
+      if(res.data.length===0) setWc(true);
+      else{
+        localStorage.setItem("user",JSON.stringify(res.data));
+        window.location='/dashboard';
+      }
       console.log("Successful request!");
     })
-  }
-
-  const register=()=>{
-    
   }
 
   return (
@@ -34,12 +38,10 @@ export default function Login() {
           <input type={'password'} onChange={(e)=>{
           setPassword(e.target.value)
           }}></input>
+          {wc && <p>*Wrong credentials</p>}
         </div>
         <div id='button' className='row'>
           <button onClick={submit}>Login</button>
-        </div>
-        <div id='button' className='row'>
-          <button onClick={register}>Register</button>
         </div>
         
       </div>

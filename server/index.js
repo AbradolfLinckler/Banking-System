@@ -137,14 +137,19 @@ app.post('/api/transaction',(req,res)=>{
   });
 });
 
-app.post('/api/userlogin',(req,res)=>{
-  db.query("SELECT * FROM customer WHERE username = ? AND pin = ?",[
+app.post('/api/emplogin',(req,res)=>{
+  console.log(req.body);
+  db.query("SELECT * FROM employee WHERE emp_id = ? AND password = ?",[
     req.body.username,
     req.body.password
   ],(err,result)=>{
-    console.log(result);
-    if(result.length==0) res.send("wrong");
-    else res.send(result[0]);
+    if(!err){
+      console.log(result[0]);
+      res.send(result);
+    }
+    else throw err;
+    // if(result.length==0) res.send("wrong");
+    // else res.send(result[0]);
   });
 });
 

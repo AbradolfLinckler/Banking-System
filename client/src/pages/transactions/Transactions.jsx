@@ -7,7 +7,7 @@ export default function Transactions() {
   const [pin, setPin] = useState(0);
   const [type, setType] = useState("Deposit");
   const [showAc, setShowAc] = useState(false);
-  const [sender, setSender] = useState(0);
+  const [sender, setSender] = useState(null);
   const [receiver, setReceiver] = useState(0);
   const [wp, setWp] = useState(false);
   const [ib, setIb] =useState(false);
@@ -38,7 +38,7 @@ export default function Transactions() {
       <div className='form'>
         <div className='row'>
           <label className='label1'>Sender's Account No</label>
-          <input type={'text'} onChange={(e)=>{
+          <input type={'text'} value={sender} onChange={(e)=>{
             setSender(e.target.value) 
           }}></input>
         </div>

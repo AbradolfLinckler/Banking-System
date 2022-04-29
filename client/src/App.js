@@ -1,9 +1,10 @@
 import './App.css';
-import Login from './pages/login/Login.jsx';
 import Register from './pages/register/Register';
 import Transactions from './pages/transactions/Transactions';
+import Dashboard from './pages/dashboard/Dashboard';
 import ReactDOM from "react-dom/client";
-
+import Home from './pages/home/Home';
+import EmpLogin from './pages/emplogin/EmpLogin';
 import {
   BrowserRouter as Router,
   Routes,
@@ -15,10 +16,12 @@ function App() {
   return (
     <Router>
       <Routes>
-      <Route exact path='/' element={<Login />}></Route>
-      <Route exact path='/login' element={<Login />}></Route>
+      <Route exact path='/' element={<Home />}></Route>
+      <Route exact path='/emplogin' element={<EmpLogin />}></Route>
+      <Route exact path='/emplogin' element={<EmpLogin />}></Route>
       <Route exact path='/register' element={<Register />}></Route>
       <Route exact path='/transactions' element={<Transactions />}></Route>
+      <Route exact path='/dashboard' element={<Dashboard />}></Route>
       </Routes>
     </Router>
   );
