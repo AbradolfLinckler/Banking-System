@@ -26,9 +26,9 @@ export default function Transactions() {
       console.log(res.data);
       if(res.data==='Wrong Pin') setWp(true);
       else if(res.data==='Insufficient Bal') setIb(true);
-      else {console.log("Transaction Successful!");
-      alert("Transaction Successful!")}
-      console.log(wp);
+      else {
+        console.log("Transaction Successful!");
+        alert("Transaction Successful!")}
     });
   }
 

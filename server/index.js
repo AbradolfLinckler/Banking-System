@@ -79,7 +79,7 @@ app.post('/api/transaction',(req,res)=>{
       console.log("Herer");
       if(req.body.pin!=this.pin) {
       // console.log(pin);
-      console.log("WP");
+      // console.log("WP");
       res.send("Wrong Pin");
       }
       else{
@@ -89,12 +89,19 @@ app.post('/api/transaction',(req,res)=>{
             req.body.sender
           ],(err,result)=>{
             // console.log(result);
+            db.query("INSERT INTO transaction VALUES (DEFAULT,?,'Cr',?,?);",[
+              req.body.sender,
+              req.body.amount,
+              new Date
+            ],(ee,rr)=>{
+              if(ee) throw ee;
+            });
             if(!err) res.send(result);
             else res.send(err);
           });
         }
         else if(req.body.amount>this.bal) {
-          console.log("IB");
+          // console.log("IB");
           res.send("Insufficient Bal");
         }
         else{
@@ -104,6 +111,14 @@ app.post('/api/transaction',(req,res)=>{
               req.body.sender
             ],(err,result)=>{
               // console.log(result);
+
+              db.query("INSERT INTO transaction VALUES (DEFAULT,?,'Dr',?,?);",[
+                req.body.sender,
+                req.body.amount,
+                new Date
+              ],(ee,rr)=>{
+                if(ee) throw ee;
+              });
               if(!err) res.send(result);
               else res.send(err);
             })
@@ -120,6 +135,21 @@ app.post('/api/transaction',(req,res)=>{
               ],(e,r)=>{
                 console.log(result);
                 console.log("success");
+                const date=new Date;
+                db.query("INSERT INTO transaction VALUES (DEFAULT,?,'Cr',?,?);",[
+                  req.body.sender,
+                  req.body.amount,
+                  date
+                ],(ee,rr)=>{
+                  if(ee) throw ee;
+                });
+                db.query("INSERT INTO transaction VALUES (DEFAULT,?,'Dr',?,?);",[
+                  req.body.receiver,
+                  req.body.amount,
+                  date
+                ],(ee,rr)=>{
+                  if(ee) throw ee;
+                });
                 if(!e) res.send(r);
                 else throw e;
               });
@@ -148,8 +178,6 @@ app.post('/api/emplogin',(req,res)=>{
       res.send(result);
     }
     else throw err;
-    // if(result.length==0) res.send("wrong");
-    // else res.send(result[0]);
   });
 });
 
