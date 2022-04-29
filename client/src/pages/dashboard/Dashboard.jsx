@@ -13,6 +13,7 @@ export default function Dashboard() {
   },[]);
 
   const getcustomers = async()=>{
+    const bcode=JSON.parse(localStorage.getItem("user")).br_code;
     const list = await axios.get('http://localhost:8000/api/clist');
     setClist(list.data);
   }

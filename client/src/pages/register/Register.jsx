@@ -9,7 +9,7 @@ export default function Register() {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [gender, setGender] = useState('');
-  const [type, setType] = useState('');
+  const [type, setType] = useState('Savings Account');
   const [mobile, setMobile] = useState('');
   const [dob, setDob] = useState('');
   const [add, setAdd] = useState('');
@@ -44,7 +44,9 @@ export default function Register() {
       "pin":pin,
       "address": add
     }).then(()=>{
+      alert("Successful Registration");
       console.log("Successful registration!");
+      window.location='/dashboard';
     })
   }
 

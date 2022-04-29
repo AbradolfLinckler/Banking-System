@@ -71,7 +71,7 @@ export default function Transactions() {
             setSender(e.target.value) 
           }}></input>
         </div>
-        <div className='row'>
+        <div className='row select' id='ss'>
           <select value={type} onChange={(e)=>{
               setType(e.target.value)
               if(e.target.value==='Transfer') setShowAc(true);

@@ -19,3 +19,8 @@ div.mstmt{
 .tdetail{
   background-color: aliceblue;
 }
+
+div.row.select, div.row#ss{
+  margin-left: 5%;
+  width: 200px;
+}

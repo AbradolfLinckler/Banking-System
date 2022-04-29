@@ -7,7 +7,7 @@ export default function EmpReg() {
 
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
-  const [bcode,setBcode] = useState(0);
+  const [bcode,setBcode] = useState(554);
   const [designation, setDesignation] = useState('Accountant');
   const [blist, setBlist] = useState([]);
 
@@ -36,7 +36,7 @@ export default function EmpReg() {
   }
 
   const branchList = blist.map((branch) => 
-    <option value={branch.branch_code}>{branch.branch_name}</option>
+    <option value='123'>{branch.branch_name}</option>
   );
 
   return (
