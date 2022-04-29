@@ -43,6 +43,18 @@ app.get('/api/blist',(req,res)=>{
   );
 });
 
+app.get('/api/elist',(req,res)=>{
+  db.query("SELECT * FROM employee;",
+    (err,result)=>{
+      if(!err) {
+        res.send(result);
+        // console.log(result[result.length-1].branch_code);
+      }
+      else throw err;
+    }
+  );
+});
+
 app.post('/api/register',(req,res)=>{
   // console.log(req.body.gender);
   db.query("INSERT INTO customer VALUES (DEFAULT,?,?,?,?,?,?,?,?,?,?)",[

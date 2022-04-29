@@ -28,7 +28,7 @@ export default function EmpLogin() {
       <h1 id='headerTitle'>Login</h1>
       <div className='form'>
         <div className='row'>
-          <label>Username</label>
+          <label>Employee ID</label>
           <input type={'text'} onChange={(e)=>{
           setUserName(e.target.value) 
           }}></input>
