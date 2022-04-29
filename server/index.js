@@ -67,6 +67,26 @@ app.get('/api/clist',(req,res)=>{
   );
 });
 
+app.post('/api/tlist',(req,res)=>{
+  db.query("SELECT * FROM transaction WHERE acc_num = ?;",[
+    req.body.acc_no
+  ],(err,result)=>{
+      if(!err) {
+        res.send(result);
+        // console.log(result[result.length-1].branch_code);
+      }
+      else throw err;
+    }
+  );
+});
+
+app.post('/api/bal',(req,res)=>{
+  db.query("SELECT * FROM customer WHERE acc_no= ?",[
+    req.body.acc_no
+  ],(err,result)=>{
+    if(!err) res.send(result);
+  })
+});
 
 app.post('/api/register',(req,res)=>{
   // console.log(req.body.gender);
