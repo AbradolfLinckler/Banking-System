@@ -33,8 +33,9 @@ export default function About() {
   const employeeList = elist.map((emp)=>
     <div className="bdetails">
       <p>Name: {emp.emp_name}</p>
-      <p>Branch: {emp.br_code}</p>
       <p>Designation: {emp.designation}</p>
+      <p>Branch Name: {emp.branch_name}</p>
+      <p>Branch Address: {emp.branch_add}</p>
     </div>
   );
 
