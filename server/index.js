@@ -55,6 +55,19 @@ app.get('/api/elist',(req,res)=>{
   );
 });
 
+app.get('/api/clist',(req,res)=>{
+  db.query("SELECT * FROM customer;",
+    (err,result)=>{
+      if(!err) {
+        res.send(result);
+        // console.log(result[result.length-1].branch_code);
+      }
+      else throw err;
+    }
+  );
+});
+
+
 app.post('/api/register',(req,res)=>{
   // console.log(req.body.gender);
   db.query("INSERT INTO customer VALUES (DEFAULT,?,?,?,?,?,?,?,?,?,?)",[
@@ -71,6 +84,18 @@ app.post('/api/register',(req,res)=>{
   ],(err,result)=>{
     if(!err) res.send(result);
     else res.send(err);
+  });
+});
+
+app.post('/api/empreg',(req,res)=>{
+  db.query('INSERT INTO employee VALUES(DEFAULT,?,?,?,?)',[
+    req.body.fullName,
+    req.body.bcode,
+    req.body.password,
+    req.body.designation
+  ],(err,result)=>{
+    if(!err) res.send(result);
+    else throw err;
   });
 });
 
@@ -180,13 +205,13 @@ app.post('/api/transaction',(req,res)=>{
 });
 
 app.post('/api/emplogin',(req,res)=>{
-  console.log(req.body);
+  // console.log(req.body);
   db.query("SELECT * FROM employee WHERE emp_id = ? AND password = ?",[
     req.body.username,
     req.body.password
   ],(err,result)=>{
     if(!err){
-      console.log(result[0]);
+      // console.log(result[0]);
       res.send(result);
     }
     else throw err;

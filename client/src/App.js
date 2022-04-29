@@ -6,6 +6,7 @@ import ReactDOM from "react-dom/client";
 import Home from './pages/home/Home';
 import EmpLogin from './pages/emplogin/EmpLogin';
 import About from './pages/about/About';
+import EmpReg from './pages/empreg/EmpReg';
 import {
   BrowserRouter as Router,
   Routes,
@@ -24,6 +25,7 @@ function App() {
       <Route exact path='/transactions' element={<Transactions />}></Route>
       <Route exact path='/dashboard' element={<Dashboard />}></Route>
       <Route exact path='/about' element={<About />}></Route>
+      <Route exact path='/empreg' element={<EmpReg />}></Route>
       </Routes>
     </Router>
   );
